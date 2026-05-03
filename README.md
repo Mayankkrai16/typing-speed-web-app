@@ -84,6 +84,7 @@ Using localStorage to save user data
 Creating charts with Chart.js
 Organizing code in a cleaner and more maintainable way
 
-**🙌 Acknowledgements**
--Chart.js for charts and data visualization
--Google Fonts for typography
+# 🙌 Acknowledgements
+
+- 📊 Chart.js — for charts and data visualization  
+- 🎨 Google Fonts — for typography  
