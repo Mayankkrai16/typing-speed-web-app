@@ -47,7 +47,7 @@ typing-speed-app/
 
 Clone the repository:
 
-git clone https://github.com/YourUsername/typing-speed-test.git
+git clone https://github.com/Mayankkrai16/typing-speed-test.git
 cd typing-speed-test
 
 Install dependencies:
