@@ -43,23 +43,32 @@ typing-speed-app/
 └── assets/
     └── screenshots/
     
-**▶️ How to Run Locally**
+## ▶️ How to Run Locally
 
 Clone the repository:
 
+```bash
 git clone https://github.com/Mayankkrai16/typing-speed-web-app.git
-cd typing-speed-test
+typing-speed-web-app
+```
 
 Install dependencies:
 
+```bash
 pip install -r requirements.txt
+```
 
 Run the Flask app:
 
+```bash
 python app.py
+```
 
 Open your browser and go to:
+
+```
 http://127.0.0.1:5000/
+```
 
 🎯 **Future Improvements**
 👤 Add user accounts and login system
