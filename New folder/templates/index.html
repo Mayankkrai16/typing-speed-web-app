@@ -1,0 +1,181 @@
+<html lang="en" data-theme="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeyForge — Typing Speed Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&amp;family=Outfit:wght@300;400;500;600;700;800&amp;family=Syne:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- ── COUNTDOWN OVERLAY ── -->
+  <div id="countdown-overlay" class="hidden">
+    <div id="countdown-number">3</div>
+    <p id="countdown-label">get ready…</p>
+  </div>
+
+  <!-- ── MAIN WRAPPER ── -->
+  <div class="app-wrapper">
+
+    <!-- ── HEADER ── -->
+    <header class="site-header">
+      <div class="logo">
+        <span class="logo-icon">⌨</span>
+        <span class="logo-name">KeyForge</span>
+        <span class="logo-sub">Typing Lab</span>
+      </div>
+      <nav class="header-nav">
+        <div class="stat-pill" id="header-highscore">
+          <span class="pill-label">Best</span>
+          <span class="pill-val" id="hs-display">—</span>
+          <span class="pill-unit">wpm</span>
+        </div>
+        <button class="icon-btn" id="sound-toggle" title="Toggle sound">
+          <svg id="sound-on-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+          <svg id="sound-off-icon" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle" title="Toggle theme">
+          <svg id="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg id="sun-icon" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+      </nav>
+    </header>
+
+    <!-- ── CHALLENGE BANNER ── -->
+    <div class="challenge-banner" id="challenge-banner">
+      <div class="challenge-left">
+        <span class="challenge-tag">MISSION</span>
+        <span id="challenge-title">Speed Demon: Hit 70+ WPM</span>
+      </div>
+      <div class="challenge-progress-wrap">
+        <div class="challenge-progress-bar"><div id="challenge-progress-fill"></div></div>
+        <span id="challenge-progress-text">0 / 3</span>
+      </div>
+      <button class="text-btn" id="next-challenge-btn">Next Mission →</button>
+    </div>
+
+    <!-- ── CONTROLS BAR ── -->
+    <div class="controls-bar">
+      <div class="control-group">
+        <label class="ctrl-label">Mode</label>
+        <div class="btn-group">
+          <button class="seg-btn active" data-mode="time">⏱ Timed</button>
+          <button class="seg-btn" data-mode="paragraph">📄 Para</button>
+        </div>
+      </div>
+      <div class="control-group" id="time-group">
+        <label class="ctrl-label">Duration</label>
+        <div class="btn-group">
+          <button class="seg-btn" data-time="15">15s</button>
+          <button class="seg-btn active" data-time="30">30s</button>
+          <button class="seg-btn" data-time="60">60s</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="ctrl-label">Difficulty</label>
+        <div class="btn-group">
+          <button class="seg-btn active" data-diff="easy">Easy</button>
+          <button class="seg-btn" data-diff="medium">Med</button>
+          <button class="seg-btn" data-diff="hard">Hard</button>
+        </div>
+      </div>
+      <button class="ctrl-action-btn" id="new-para-btn">↻ New Text</button>
+    </div>
+
+    <!-- ── TYPING ARENA ── -->
+    <section class="typing-arena">
+      <div class="arena-header">
+        <div class="live-stats">
+          <div class="live-stat">
+            <span class="ls-val" id="live-wpm">—</span>
+            <span class="ls-label">wpm</span>
+          </div>
+          <div class="live-stat">
+            <span class="ls-val" id="live-acc">—</span>
+            <span class="ls-label">acc%</span>
+          </div>
+          <div class="live-stat" id="timer-wrap">
+            <span class="ls-val" id="live-timer">30</span>
+            <span class="ls-label">sec</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="paragraph-display" id="para-display"></div>
+
+      <div class="input-row">
+        <textarea id="typing-input" class="typing-input" placeholder="Click here and start typing…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" rows="1"></textarea>
+        <button class="start-btn" id="start-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Start
+        </button>
+        <button class="restart-btn hidden" id="restart-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-4.95"></path></svg>
+          Restart
+        </button>
+      </div>
+    </section>
+
+    <!-- ── RESULTS PANEL (hidden until test ends) ── -->
+    <section class="results-panel hidden" id="results-panel">
+
+      <div class="results-header">
+        <h2 class="results-title">Test Complete</h2>
+        <div class="results-badge" id="results-badge">🏅</div>
+      </div>
+
+      <!-- Key metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card accent">
+          <span class="metric-val" id="res-wpm">0</span>
+          <span class="metric-label">WPM</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val" id="res-acc">0%</span>
+          <span class="metric-label">Accuracy</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val" id="res-errors">0</span>
+          <span class="metric-label">Errors</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val" id="res-chars">0</span>
+          <span class="metric-label">Chars</span>
+        </div>
+      </div>
+
+      <!-- Advice card -->
+      <div class="advice-card" id="advice-card">
+        <div class="advice-icon">💡</div>
+        <p id="advice-text">Great job!</p>
+      </div>
+
+      <!-- Charts -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3 class="chart-title">Session Breakdown</h3>
+          <div class="chart-wrap"><canvas id="session-chart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title">WPM Over Time</h3>
+          <div class="chart-wrap"><canvas id="consistency-chart"></canvas></div>
+        </div>
+        <div class="chart-card full-width">
+          <h3 class="chart-title">Score History</h3>
+          <div class="chart-wrap"><canvas id="history-chart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button class="primary-btn" id="retry-btn">Try Again</button>
+        <button class="ghost-btn" id="new-para-results-btn">New Paragraph</button>
+      </div>
+    </section>
+
+  </div><!-- /.app-wrapper -->
+
+  <script src="/static/script.js"></script>
+
+
+</body></html>
