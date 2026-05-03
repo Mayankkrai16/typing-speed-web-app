@@ -7,18 +7,20 @@ It features real-time WPM tracking, accuracy analysis, performance charts, chall
 - HTML, CSS, JavaScript
 - Chart.js
 
-**🚀 Features**
-⚡ Live typing speed (WPM) calculation as you type
-🎯 Accuracy tracking with visual feedback on mistakes
-⏱️ Different modes:
-Timed mode (15s / 30s / 60s)
-Paragraph mode
-📊 Performance charts using Chart.js
-🏆 Simple challenge system with achievements
-🌗 Dark and light theme toggle
-🔊 Optional typing sound effects
-📈 Saves typing history using local storage
-🎮 Smooth and responsive UI interactions
+## 🚀 Features
+
+- ⚡ Live typing speed (WPM) calculation as you type  
+- 🎯 Accuracy tracking with visual feedback on mistakes  
+- ⏱️ Different modes:
+  - Timed mode (15s / 30s / 60s)
+  - Paragraph mode  
+- 📊 Performance charts using Chart.js  
+- 🏆 Simple challenge system with achievements  
+- 🌗 Dark and light theme toggle  
+- 🔊 Optional typing sound effects  
+- 📈 Saves typing history using local storage  
+- 🎮 Smooth and responsive UI interactions  
+
 🛠️ Tech Stack
 Frontend: HTML, CSS, JavaScript
 Backend: Python (Flask)
